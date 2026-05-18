@@ -1,7 +1,9 @@
 import { useState } from "react";
-import {MovieList} from "./components/MovieList";
-import {Filter} from "./components/Filter";
-import {AddMovie} from "./components/AddMovie";
+import { MovieList } from "./components/MovieList";
+import { Filter } from "./components/Filter";
+import { AddMovie } from "./components/AddMovie";
+import { AddMovieModal } from "./components/AddMovieModal";
+import { SortMovies } from "./components/SortMovies";
 
 function App() {
   const [movies, setMovies] = useState([
@@ -33,29 +35,54 @@ function App() {
 
   const [titleFilter, setTitleFilter] = useState("");
   const [ratingFilter, setRatingFilter] = useState(0);
+  const [sortType, setSortType] = useState("");
 
-  const addMovie = (newMovie) => {
-    setMovies([...movies, { id: movies.length + 1, ...newMovie }]);
+
+  const addMovie = (movie) => {
+    setMovies((prev) => [...prev, { id: Date.now(), ...movie }]);
   };
 
-  const filteredMovies = movies.filter(
-    (movie) =>
-      movie.title.toLowerCase().includes(titleFilter.toLowerCase()) &&
-      movie.rating >= ratingFilter
-  );
+  const filteredMovies = useMemo(() => {
+    let updatedMovies = [...movies].filter(
+      (movie) =>
+        movie.title
+          .toLowerCase()
+          .includes(titleFilter.toLowerCase()) &&
+        movie.rating >= ratingFilter
+    );
+
+    if (sortType === "az") {
+      updatedMovies.sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    if (sortType === "rating") {
+      updatedMovies.sort((a, b) => b.rating - a.rating);
+    }
+
+    return updatedMovies;
+  }, [movies, titleFilter, ratingFilter, sortType]);
 
   return (
-    <div className="app">
-      <h1>🎬 Movie App</h1>
+    <div className="min-h-screen bg-gray-950 text-white p-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+          <h1 className="text-4xl font-bold">🎬 Movie App</h1>
 
-      <Filter
-        setTitleFilter={setTitleFilter}
-        setRatingFilter={setRatingFilter}
-      />
+          <AddMovieModal addMovie={addMovie} />
+        </div>
 
-      <AddMovie addMovie={addMovie} />
+        <div className="flex flex-col lg:flex-row gap-4 justify-between mb-8">
+          <Filter
+            setTitleFilter={setTitleFilter}
+            ratingFilter={ratingFilter}
+            setRatingFilter={setRatingFilter}
+          />
 
-      <MovieList movies={filteredMovies} />
+          <SortMovies setSortType={setSortType} />
+        </div>
+
+        <MovieList movies={filteredMovies} />
+      </div>
     </div>
   );
 }
