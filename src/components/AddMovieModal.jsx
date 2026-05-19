@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 export function AddMovieModal({ addMovie }) {
     const [open, setOpen] = useState(false);
 
@@ -7,6 +8,7 @@ export function AddMovieModal({ addMovie }) {
         description: "",
         posterURL: "",
         rating: "",
+        trailer: "",
     });
 
     const handleChange = (e) => {
@@ -29,6 +31,7 @@ export function AddMovieModal({ addMovie }) {
             description: "",
             posterURL: "",
             rating: "",
+            trailer: "",
         });
 
         setOpen(false);
@@ -44,10 +47,12 @@ export function AddMovieModal({ addMovie }) {
             </button>
 
             {open && (
-                <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+                <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 px-4">
                     <div className="bg-gray-900 p-6 rounded-2xl w-full max-w-md">
                         <div className="flex items-center justify-between mb-4">
-                            <h2 className="text-2xl font-bold">Add Movie</h2>
+                            <h2 className="text-2xl font-bold">
+                                Add Movie
+                            </h2>
 
                             <button
                                 onClick={() => setOpen(false)}
@@ -57,7 +62,10 @@ export function AddMovieModal({ addMovie }) {
                             </button>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                        <form
+                            onSubmit={handleSubmit}
+                            className="space-y-4"
+                        >
                             <input
                                 type="text"
                                 name="title"
@@ -74,6 +82,7 @@ export function AddMovieModal({ addMovie }) {
                                 value={form.description}
                                 onChange={handleChange}
                                 className="w-full px-4 py-2 rounded-lg bg-gray-800 outline-none"
+                                rows="4"
                             />
 
                             <input
@@ -81,6 +90,16 @@ export function AddMovieModal({ addMovie }) {
                                 name="posterURL"
                                 placeholder="Poster URL"
                                 value={form.posterURL}
+                                onChange={handleChange}
+                                className="w-full px-4 py-2 rounded-lg bg-gray-800 outline-none"
+                                required
+                            />
+
+                            <input
+                                type="text"
+                                name="trailer"
+                                placeholder="YouTube Embed URL"
+                                value={form.trailer}
                                 onChange={handleChange}
                                 className="w-full px-4 py-2 rounded-lg bg-gray-800 outline-none"
                                 required
