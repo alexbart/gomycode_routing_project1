@@ -1,37 +1,56 @@
-# 🎬 React Movie App
+# 🎬 Alex's-Style React Movie App
 
-A modern Movie App built with React, Tailwind CSS, and React Router.
+A modern Netflix-inspired Movie App built with React, Tailwind CSS, React Router, and the OMDb API.
 
 This project allows users to:
 
-- View movies
-- Add new movies
+- Search movies live using an API
+- View dynamic movie results
+- Add new custom movies
 - Filter movies by title
 - Filter movies using ⭐ star ratings
 - Sort movies alphabetically or by rating
 - Navigate to a movie details page
 - Watch embedded movie trailers
+- Experience real-time API searching with debounce optimization
 
 ---
 
 # 🚀 Technologies Used
 
 - React
-- React Hooks (`useState`, `useMemo`)
+- React Hooks (`useState`, `useEffect`, `useMemo`)
 - React Router DOM
 - Tailwind CSS
 - Vite
+- OMDb API
+- Custom Hooks (`useDebounce`)
 
 ---
 
 # 📸 Features
 
+## ✅ Live Movie Search (Netflix Style)
+
+Users can:
+
+- Search movies dynamically
+- Fetch movie data directly from the OMDb API
+- See results update automatically while typing
+
+The app uses **debounce optimization** to prevent excessive API calls while typing.
+
+---
+
 ## ✅ Home Page
 
-- Display all movie cards
 - Responsive movie grid
+- Dynamic movie cards
 - Hover animations
-- Netflix-style UI
+- Netflix-inspired UI
+- Real-time movie rendering
+
+---
 
 ## ✅ Add Movie
 
@@ -65,6 +84,16 @@ Movies can be sorted by:
 
 ---
 
+## ✅ Loading & Error States
+
+The app handles:
+
+- Loading states while fetching movies
+- Error handling if API requests fail
+- Empty search results
+
+---
+
 ## ✅ Movie Details Page
 
 When a user clicks a movie card:
@@ -73,6 +102,29 @@ When a user clicks a movie card:
 - Full movie description is displayed
 - Embedded trailer plays
 - User can navigate back home
+
+---
+
+# 🌐 OMDb API Integration
+
+This app uses the OMDb API to fetch real movie data.
+
+Example API request:
+
+```txt
+https://www.omdbapi.com/?s=batman&apikey=YOUR_API_KEY
+```
+
+---
+
+# ⏱️ Debounce Optimization
+
+The application uses a custom `useDebounce` hook to:
+
+- Delay API requests while typing
+- Improve performance
+- Reduce unnecessary API calls
+- Create a smoother Netflix-style search experience
 
 ---
 
@@ -88,6 +140,9 @@ src/
 │   ├── MovieDetails.jsx
 │   ├── MovieList.jsx
 │   └── SortMovies.jsx
+│
+├── utils/
+│   └── useDebounce.js
 │
 ├── App.jsx
 ├── main.jsx
@@ -132,7 +187,7 @@ npm run dev
 
 # 🎨 Tailwind CSS Setup
 
-Install Tailwind:
+Install Tailwind CSS:
 
 ```bash
 npm install tailwindcss @tailwindcss/vite
@@ -169,17 +224,22 @@ export default defineConfig({
 This project demonstrates:
 
 - Functional Components
-- Props
 - Component Reusability
+- Props
 - React Hooks
+- Custom Hooks
 - Controlled Inputs
 - Conditional Rendering
 - Dynamic Routing
 - useParams
 - useNavigate
+- useEffect
+- useMemo
+- API Integration
+- Debouncing
+- State Management
 - Array Filtering
 - Array Sorting
-- State Management
 
 ---
 
@@ -218,14 +278,17 @@ https://www.youtube.com/watch?v=zSWdZVtXT7E
 
 Possible upgrades:
 
-- Add Local Storage
 - Add TMDB API integration
-- Add Authentication
 - Add Favorites Feature
-- Add Dark/Light Theme
-- Add Framer Motion animations
-- Add Pagination
+- Add Authentication
+- Add Local Storage
 - Add Genre Categories
+- Add Infinite Scrolling
+- Add Skeleton Loading UI
+- Add Framer Motion animations
+- Add Backend Database
+- Add User Reviews
+- Add Watchlist Functionality
 
 ---
 
